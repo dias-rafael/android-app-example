@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val getUsersUseCase: GetUsersUseCase
+    private val getUsersUseCase: com.example.android.domain.usecase.GetUsersUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UserUiState())

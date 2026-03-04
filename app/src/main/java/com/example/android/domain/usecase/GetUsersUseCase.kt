@@ -5,10 +5,14 @@ import com.example.android.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetUsersUseCase @Inject constructor(
+interface GetUsersUseCase {
+    operator fun invoke(): Flow<List<User>>
+    suspend fun refresh()
+}
+
+class GetUsersUseCaseImpl @Inject constructor(
     private val repository: UserRepository
-) {
-    operator fun invoke(): Flow<List<User>> = repository.getUsers()
-    
-    suspend fun refresh() = repository.refreshUsers()
+) : GetUsersUseCase {
+    override operator fun invoke(): Flow<List<User>> = repository.getUsers()
+    override suspend fun refresh() = repository.refreshUsers()
 }
