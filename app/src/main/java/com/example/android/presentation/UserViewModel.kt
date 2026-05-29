@@ -27,7 +27,7 @@ class UserViewModel @Inject constructor(
     private fun observeUsers() {
         getUsersUseCase()
             .onEach { users ->
-                _uiState.update { it.copy(users = users, isLoading = false) }
+                _uiState.update { it.copy(users = users, isLoading = false, error = null) }
             }
             .catch { e ->
                 _uiState.update { it.copy(error = e.message, isLoading = false) }
@@ -49,6 +49,7 @@ class UserViewModel @Inject constructor(
             _uiState.update { it.copy(isLoading = true) }
             try {
                 getUsersUseCase.refresh()
+                _uiState.update { it.copy(isLoading = false) }
             } catch (e: Exception) {
                 _uiState.update { it.copy(error = e.message, isLoading = false) }
             }
