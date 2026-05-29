@@ -61,4 +61,10 @@ object AppModule {
     fun provideUserRepository(apiService: ApiService, userDao: UserDao): UserRepository {
         return UserRepositoryImpl(apiService, userDao)
     }
+
+    @Provides
+    @Singleton
+    fun provideGetUsersUseCase(userRepository: UserRepository): com.example.android.domain.usecase.GetUsersUseCase {
+        return com.example.android.domain.usecase.GetUsersUseCaseImpl(userRepository)
+    }
 }
